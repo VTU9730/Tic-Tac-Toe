@@ -59,7 +59,7 @@ export default function App() {
   }
   return (
     <div id="main">
-      <h1>Tic-Tac-Toe Game</h1>
+      <h1>Tic-Tac-Toe Game!</h1>
       <div>
         <button onClick={(e) => handleClick(e)} value="0" ref={box1}></button>
         <button onClick={(e) => handleClick(e)} value="1" ref={box2}></button>
