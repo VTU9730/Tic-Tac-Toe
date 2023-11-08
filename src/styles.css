@@ -1,12 +1,16 @@
 #main {
   text-align: center;
 }
-button {
+button{
   background-color: white;
   border: solid 1px grey;
   margin: 2px;
   width: 30px;
   height: 30px;
+}
+#first-row,#second-row,#third-row{
+  display:flex;
+  justify-content: center;
 }
 #reset {
   width: auto;

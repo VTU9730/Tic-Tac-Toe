@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
 import "./styles.css";
+import win from './sounds/win.wav'
+import click from './sounds/click.wav'
+
 let state = [];
 export default function App() {
   const [count, setCount] = useState(0);
   const [winner, setWinner] = useState(null);
+  
   let box1 = useRef();
   let box2 = useRef();
   let box3 = useRef();
@@ -21,6 +25,8 @@ export default function App() {
     });
     state = [];
     setWinner(null);
+    const winElement = document.getElementById('winElement');
+    winElement.pause();
   }
   function handleClick(e) {
     if (!winner && !e.target.innerText) {
@@ -36,6 +42,8 @@ export default function App() {
       console.log(state);
       setCount(count + 1);
       winCondition(state);
+      const clcikElement = document.getElementById('clickElement');
+      clcikElement.play();
     }
   }
   function winCondition(state) {
@@ -57,24 +65,34 @@ export default function App() {
       setWinner(state[2]);
     }
   }
+  if(winner){
+    const winElement = document.getElementById('winElement');
+    winElement.play();
+  }
   return (
     <div id="main">
       <h1>Tic-Tac-Toe Game!</h1>
-      <div>
+      <div id="first-row">
         <button onClick={(e) => handleClick(e)} value="0" ref={box1}></button>
         <button onClick={(e) => handleClick(e)} value="1" ref={box2}></button>
         <button onClick={(e) => handleClick(e)} value="2" ref={box3}></button>
       </div>
-      <div>
+      <div id="second-row">
         <button onClick={(e) => handleClick(e)} value="3" ref={box4}></button>
         <button onClick={(e) => handleClick(e)} value="4" ref={box5}></button>
         <button onClick={(e) => handleClick(e)} value="5" ref={box6}></button>
       </div>
-      <div>
+      <div id="third-row">
         <button onClick={(e) => handleClick(e)} value="6" ref={box7}></button>
         <button onClick={(e) => handleClick(e)} value="7" ref={box8}></button>
         <button onClick={(e) => handleClick(e)} value="8" ref={box9}></button>
       </div>
+      <audio id="winElement"  preload="auto" autobuffer>
+        <source src={win} type="audio/wav" />
+      </audio>
+      <audio id="clickElement"  preload="auto" autobuffer>
+        <source src={click} type="audio/wav" />
+      </audio>
       {winner && (
         <button id="reset" onClick={() => handleReset()}>
           Reset
@@ -84,3 +102,4 @@ export default function App() {
     </div>
   );
 }
+
