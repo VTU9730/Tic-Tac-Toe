@@ -6,8 +6,7 @@ import click from './sounds/click.wav'
 let state = [];
 export default function App() {
   const [count, setCount] = useState(0);
-  const [winner, setWinner] = useState(null);
-  
+  const [winner, setWinner] = useState(false);
   let box1 = useRef();
   let box2 = useRef();
   let box3 = useRef();
@@ -18,17 +17,19 @@ export default function App() {
   let box8 = useRef();
   let box9 = useRef();
   let boxes = [box1, box2, box3, box4, box5, box6, box7, box8, box9];
+  
   function handleReset() {
     boxes.map((box) => {
       box.current.innerText = "";
       box.current.style.backgroundColor = "white";
     });
     state = [];
-    setWinner(null);
+    setWinner(false);
     const winElement = document.getElementById('winElement');
     winElement.pause();
   }
   function handleClick(e) {
+    
     if (!winner && !e.target.innerText) {
       if (count % 2 == 0) {
         e.target.innerText = "X";
@@ -93,7 +94,8 @@ export default function App() {
       <audio id="clickElement"  preload="auto" autobuffer>
         <source src={click} type="audio/wav" />
       </audio>
-      {winner && (
+      
+      {winner&& (
         <button id="reset" onClick={() => handleReset()}>
           Reset
         </button>
